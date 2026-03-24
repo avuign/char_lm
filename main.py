@@ -1,15 +1,10 @@
 import torch
 import torch.nn as nn
 
+from config import BATCH_SIZE, CONTEXT_SIZE, EMBEDDING_DIM, LR, NUM_EPOCHS
 from data import encoding_dic, load_data
 from model import CharModel
 from train import train
-
-CONTEXT_SIZE = 3
-EMBEDDING_DIM = 10
-NUM_EPOCHS = 10
-BATCH_SIZE = 256
-LR = 0.01
 
 
 def generate_new_names(model):
