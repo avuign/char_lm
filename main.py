@@ -9,7 +9,7 @@ from train import train
 
 def generate_new_names(model):
     _, decoding = encoding_dic()
-    name = [0, 0, 0]
+    name = [0] * CONTEXT_SIZE
 
     actual_name = ""
     while True:
