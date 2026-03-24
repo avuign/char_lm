@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from config import BATCH_SIZE, CONTEXT_SIZE, EMBEDDING_DIM, LR, NUM_EPOCHS
+from config import BATCH_SIZE, CONTEXT_SIZE, EMBEDDING_DIM, HIDDEN_DIM, LR, NUM_EPOCHS
 from data import encoding_dic, load_data
 from model import CharModel
 from train import train
@@ -26,7 +26,7 @@ def generate_new_names(model):
 def main():
 
     X, Y = load_data("names.txt", CONTEXT_SIZE)
-    model = CharModel(CONTEXT_SIZE, EMBEDDING_DIM)
+    model = CharModel(CONTEXT_SIZE, EMBEDDING_DIM, HIDDEN_DIM)
     train(model, X, Y, NUM_EPOCHS, BATCH_SIZE, LR)
 
     for i in range(0, 10):
