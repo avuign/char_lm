@@ -1,7 +1,15 @@
 import torch
 import torch.nn as nn
 
-from config import BATCH_SIZE, CONTEXT_SIZE, EMBEDDING_DIM, HIDDEN_DIM, LR, NUM_EPOCHS
+from config import (
+    BATCH_SIZE,
+    CONTEXT_SIZE,
+    EMBEDDING_DIM,
+    HIDDEN_DIM_STUDENT,
+    HIDDEN_DIM_TEACHER,
+    LR,
+    NUM_EPOCHS,
+)
 from data import encoding_dic, load_data
 from model import CharModel
 from train import train
@@ -25,12 +33,21 @@ def generate_new_names(model):
 
 def main():
 
-    X, Y = load_data("names.txt", CONTEXT_SIZE)
-    model = CharModel(CONTEXT_SIZE, EMBEDDING_DIM, HIDDEN_DIM)
-    train(model, X, Y, NUM_EPOCHS, BATCH_SIZE, LR)
+    teacher = CharModel(CONTEXT_SIZE, EMBEDDING_DIM, HIDDEN_DIM_TEACHER)
+    teacher.load_state_dict(torch.load("teacher.pt"))
 
+    student = CharModel(CONTEXT_SIZE, EMBEDDING_DIM, HIDDEN_DIM_STUDENT)
+    student.load_state_dict(torch.load("student.pt"))
+
+    print("Teacher results :\n")
     for i in range(0, 10):
-        print(generate_new_names(model))
+        print(generate_new_names(teacher))
+
+    print("\n")
+
+    print("Student results :\n")
+    for i in range(0, 10):
+        print(generate_new_names(student))
 
 
 if __name__ == "__main__":
