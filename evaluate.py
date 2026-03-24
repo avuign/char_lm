@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 
 from config import (
+    BATCH_SIZE,
     CONTEXT_SIZE,
     EMBEDDING_DIM,
     HIDDEN_DIM_STUDENT,
