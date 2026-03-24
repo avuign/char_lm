@@ -1,0 +1,40 @@
+import string
+
+
+def encoding_dic():
+    encoding = {}
+    decoding = {}
+    for i, v in enumerate(string.ascii_lowercase):
+        encoding[v] = i + 1
+        decoding[i + 1] = v
+    encoding["."] = 0
+    decoding[0] = "."
+    return encoding, decoding
+
+
+def name_to_input(name, context_size):
+    name = "." * context_size + name + "."
+    encoding, _ = encoding_dic()
+    input_context = []
+    target = []
+    for i in range(0, len(name) - context_size):
+        window = []
+        for char in name[i : i + context_size]:
+            window.append(encoding[char])
+        input_context.append(window)
+        target_char = name[i + context_size]
+        target.append(encoding[target_char])
+    return input_context, target
+
+
+def load_data(filename, context_size):
+    with open(filename) as file:
+        names = [line.rstrip().lower() for line in file]
+
+    input_context = []
+    target = []
+    for name in names:
+        inputs, targets = name_to_input(name, context_size)
+        input_context.extend(inputs)
+        target.extend(targets)
+    return input_context, target
