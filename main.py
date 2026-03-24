@@ -2,17 +2,13 @@ import torch
 import torch.nn as nn
 
 from config import (
-    BATCH_SIZE,
     CONTEXT_SIZE,
     EMBEDDING_DIM,
     HIDDEN_DIM_STUDENT,
     HIDDEN_DIM_TEACHER,
-    LR,
-    NUM_EPOCHS,
 )
-from data import encoding_dic, load_data
+from data import encoding_dic
 from model import CharModel
-from train import train
 
 
 def generate_new_names(model):

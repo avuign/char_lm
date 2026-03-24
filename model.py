@@ -1,8 +1,6 @@
 import torch
 import torch.nn as nn
 
-from config import HIDDEN_DIM
-
 
 # Model
 class CharModel(nn.Module):

@@ -42,7 +42,8 @@ def train_via_distillation(
             batch = {"chars": X[i : i + batch_size], "next_char": Y[i : i + batch_size]}
 
             student_logits = student.forward(torch.tensor(batch["chars"]))
-            teacher_logits = teacher.forward(torch.tensor(batch["chars"]))
+            with torch.no_grad():
+                teacher_logits = teacher.forward(torch.tensor(batch["chars"]))
             hard_labels = torch.tensor(batch["next_char"])
 
             loss = distillation_loss(
